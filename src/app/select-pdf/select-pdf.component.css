@@ -1,0 +1,89 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.logo {
+    margin-bottom: -30px;
+}
+
+.logo img {
+    width: 220px;
+    height: 130px;
+}
+
+h1 {
+    font-size: 30px;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.upload-box {
+    background: white;
+    border: 1px solid #000000; 
+    /* margin: 1px solid #e0e0e0; */
+    border-radius: 16px; 
+    margin-top: 50px;
+    padding: 30px;  
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.document-icon {
+    margin-bottom: 15px;
+}
+
+.icon-circle {
+    position: relative;
+    width: 100px;  /* ปรับขนาดวงกลมให้เล็กลง */
+    height: 100px; /* ปรับความสูงให้เท่ากับความกว้างเพื่อให้เป็นวงกลมที่สมบูรณ์ */
+    background: #1d37b9;  /* ปรับสีให้อ่อนลงเล็กน้อย */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-circle img {
+    width: 150px;  /* ปรับขนาดรูปภาพไอคอนให้เล็กลง */
+    height: 150px;
+    object-fit: contain;
+}
+
+.document-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #ff0000;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
+.select-btn {
+    background: #040a4e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.select-btn:hover {
+    background: #283593;
+}
