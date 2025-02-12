@@ -1,1 +1,44 @@
-<p>check-document works!</p>
+
+<div class="PDF">
+    <div class="pdf_header py-3 shadow text-center ">
+        <h5>คุณมีเอกสารต้องลงนาม</h5>
+    </div>
+    <div class="mb-5" >
+        <!-- @if (pdfSrc) {
+            <app-preview-pdf
+                [annotations]="annotationsForPdf" 
+                [currentPdf]="currentPdf"
+                [currentPdfIndex]="currentPdfIndex"
+                [pdfSrc]="pdfSrc"
+                (onPageChanged)="handlePageChange($event)"
+                (onPagesLoaded)="handlePdfLoaded($event)"
+                (onReadCompleted)="handleReadCompleted($event)"
+                >
+            ></app-preview-pdf>
+        } -->
+    </div>
+
+    <div class="pdf_footer2 fixed-bottom shadow">
+        <div class="pdf_Footer fixed-bottom">
+            <div class="pdf_button px-sm-5 py-3 row col text-center">
+                <div class="col-sm-3 col-4">
+                    <!-- @if (!(currentPdfIndex === 0)) { -->
+                        <button class="btn-pdf" (click)="prevPdf()" [disabled]="currentPdfIndex === 0"></button>
+                    <!-- } -->
+                </div>
+                <div class="col-sm-6 col-4">
+                    <span>เอกสารที่ {{ currentPdf }}/{{ totalfiles }}</span> 
+                </div>
+                <div class="col-sm-3 col-4">
+                    <!-- @if (currentPdfIndex === totalfiles -1) { -->
+                        <!-- <button class="btn-pdf" (click)="nextPdf()" [disabled]="!isScrolledToBottom " >{{ 'preview_pdf_text_3' | translate }}</button> -->
+                        <button class="btn-pdf" (click)="nextPdf()" [disabled]="!isScrolledToBottom " ></button>
+                    <!-- } @else { -->
+                        <!-- <button class="btn-pdf" (click)="nextPdf()" [disabled]="!isScrolledToBottom && !this.isConfirmed[this.currentPdfIndex]" >{{ 'preview_pdf_text_4' | translate }}</button> -->
+                        <button class="btn-pdf" (click)="nextPdf()" [disabled]="!isScrolledToBottom && !this.isConfirmed[this.currentPdfIndex]" ></button>
+                    <!-- }  -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
