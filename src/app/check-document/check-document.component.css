@@ -1,0 +1,41 @@
+.PDF{
+    overflow: hidden !important;
+    height: 100dvh;
+}
+
+.pdf_header{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #e5e5e5;
+
+}
+
+.pdf_Footer{
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #e5e5e5;
+    box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+
+}
+
+.pdf_button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.btn-pdf{
+    background-color: unset;
+    border: unset;
+    color: #090e91;
+}
+
+.btn-pdf:disabled {
+    color: #666666; 
+    cursor: not-allowed; 
+    opacity: 0.6;
+}
+
+
+
+
+  
+

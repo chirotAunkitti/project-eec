@@ -1,0 +1,50 @@
+<div class="signature-upload-container">
+  <h2 class="title">เพิ่มลายเซ็น</h2>
+  
+  <div class="upload-area">
+    <div class="file-input-wrapper">
+      <input 
+        type="file" 
+        (change)="onFileSelected($event)" 
+        accept="image/*"
+        #fileInput
+        class="file-input"
+      >
+      <button class="choose-file-btn" (click)="fileInput.click()">
+        Choose file
+      </button>
+      <span class="file-name">{{ fileName }}</span>
+    </div>
+
+    <!-- Remove *ngIf to always show the preview area -->
+    <div class="signature-preview">
+      <div class="zoom-controls" *ngIf="selectedImage">
+        <button class="zoom-btn" (click)="zoomIn()">
+          <span class="zoom-icon">🔍+</span>
+        </button>
+        <button class="zoom-btn" (click)="zoomOut()">
+          <span class="zoom-icon">🔍-</span>
+        </button>
+        <button class="reset-btn" (click)="reset()">
+          <span class="reset-icon">↺</span>
+        </button>
+      </div>
+      <div class="image-container">
+        <img 
+          *ngIf="selectedImage"
+          [src]="selectedImage" 
+          [style.transform]="'scale(' + zoomLevel + ')'"
+          alt="ลายเซ็น"
+        >
+        <div *ngIf="!selectedImage" class="placeholder">
+          กรุณาเลือกรูปภาพ
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-buttons">
+    <button class="cancel-btn">ยกเลิก</button>
+    <button class="save-btn" [disabled]="!selectedImage" (click)="onSave()">บันทึก</button>
+  </div>
+</div>
