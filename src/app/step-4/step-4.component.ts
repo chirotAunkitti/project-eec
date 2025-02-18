@@ -60,5 +60,5 @@ export class Step4Component {
   onNono(): void {
       this.router.navigate(['/step-2-pdf']);
     }
-  
+
 }

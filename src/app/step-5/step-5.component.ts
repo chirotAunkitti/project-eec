@@ -8,5 +8,4 @@ import { Component } from '@angular/core';
   styleUrl: './step-5.component.css'
 })
 export class Step5Component {
-
 }
