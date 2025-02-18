@@ -53,8 +53,12 @@ export class Step4Component {
 
   onSave(): void {
     if (this.selectedImage) {
-      // ทำการบันทึกข้อมูลที่ต้องการ (ถ้ามี)
       this.router.navigate(['/step-5-pdf']);
     }
   }
+
+  onNono(): void {
+      this.router.navigate(['/step-2-pdf']);
+    }
+  
 }
