@@ -1,4 +1,8 @@
 <div class="signature-upload-container">
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="loading-spinner"></div>
+  </div>
+
   <h2 class="title">เพิ่มลายเซ็น</h2>
   
   <div class="upload-area">
@@ -10,22 +14,21 @@
         #fileInput
         class="file-input"
       >
-      <button class="choose-file-btn" (click)="fileInput.click()">
+      <button class="choose-file-btn" (click)="fileInput.click()" [disabled]="isLoading">
         Choose file
       </button>
       <span class="file-name">{{ fileName }}</span>
     </div>
 
-    <!-- Remove *ngIf to always show the preview area -->
     <div class="signature-preview">
       <div class="zoom-controls" *ngIf="selectedImage">
-        <button class="zoom-btn" (click)="zoomIn()">
+        <button class="zoom-btn" (click)="zoomIn()" [disabled]="isLoading">
           <span class="zoom-icon">🔍+</span>
         </button>
-        <button class="zoom-btn" (click)="zoomOut()">
+        <button class="zoom-btn" (click)="zoomOut()" [disabled]="isLoading">
           <span class="zoom-icon">🔍-</span>
         </button>
-        <button class="reset-btn" (click)="reset()">
+        <button class="reset-btn" (click)="reset()" [disabled]="isLoading">
           <span class="reset-icon">↺</span>
         </button>
       </div>
@@ -44,7 +47,7 @@
   </div>
 
   <div class="action-buttons">
-    <button class="cancel-btn"  (click)="onNono()">ยกเลิก</button>
-    <button class="save-btn" [disabled]="!selectedImage" (click)="onSave()">บันทึก</button>
+    <button class="cancel-btn" (click)="onNono()" [disabled]="isLoading">ยกเลิก</button>
+    <button class="save-btn" [disabled]="!selectedImage || isLoading" (click)="onSave()">บันทึก</button>
   </div>
 </div>

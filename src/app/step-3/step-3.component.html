@@ -1,24 +1,29 @@
 <div class="signature-container">
-    <h2>เพิ่มลายเซ็น</h2>
-    <div class="signature-box">
-      <div class="canvas-container">
-        <canvas #signatureCanvas 
-          (mousedown)="startDrawing($event)"
-          (mousemove)="draw($event)"
-          (mouseup)="stopDrawing()"
-          (mouseleave)="stopDrawing()"
-          (touchstart)="startDrawing($event)"
-          (touchmove)="draw($event)"
-          (touchend)="stopDrawing()">
-        </canvas>
-      </div>
-      <div class="input-container">
-        <input type="text" [formControl]="nameControl" placeholder="ชื่อ - นามสกุล (ภาษาไทย)" class="name-input">
-      </div>
-      <div class="button-container">
-        <button class="clear-btn" (click)="clearCanvas()">ล้าง</button>
-        <button class="save-btn" (click)="saveSignature()">บันทึก</button>
-        <button class="cancel-btn" (click)="cancel()">ยกเลิก</button>
-      </div>
+  <!-- Loading Overlay -->
+  <div class="loading-overlay" *ngIf="isLoading">
+      <div class="loading-spinner"></div>
+  </div>
+
+  <h2>เพิ่มลายเซ็น</h2>
+  <div class="signature-box">
+    <div class="canvas-container">
+      <canvas #signatureCanvas 
+        (mousedown)="startDrawing($event)"
+        (mousemove)="draw($event)"
+        (mouseup)="stopDrawing()"
+        (mouseleave)="stopDrawing()"
+        (touchstart)="startDrawing($event)"
+        (touchmove)="draw($event)"
+        (touchend)="stopDrawing()">
+      </canvas>
+    </div>
+    <div class="input-container">
+      <input type="text" [formControl]="nameControl" placeholder="ชื่อ - นามสกุล (ภาษาไทย)" class="name-input">
+    </div>
+    <div class="button-container">
+      <button class="clear-btn" (click)="clearCanvas()" [disabled]="isLoading">ล้าง</button>
+      <button class="save-btn" (click)="saveSignature()" [disabled]="isLoading">บันทึก</button>
+      <button class="cancel-btn" (click)="cancel()" [disabled]="isLoading">ยกเลิก</button>
     </div>
   </div>
+</div>
