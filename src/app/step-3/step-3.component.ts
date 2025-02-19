@@ -1,6 +1,6 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, ElementRef, ViewChild, AfterViewInit, inject, PLATFORM_ID } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,12 +16,24 @@ export class Step3Component implements AfterViewInit {
   private isDrawing = false;
   private lastX = 0;
   private lastY = 0;
-  nameControl = new FormControl('');
+  private hasSignature = false;
+  private platformId = inject(PLATFORM_ID);
+  
+  nameControl = new FormControl('', [Validators.required, Validators.pattern(/^[ก-๙\s]+$/)]);
   public isLoading: boolean = false;
+  public isBrowser: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngAfterViewInit() {
+    if (this.isBrowser) {
+      this.initializeCanvas();
+    }
+  }
+
+  private initializeCanvas() {
     const canvas = this.signatureCanvas.nativeElement;
     this.ctx = canvas.getContext('2d')!;
     
@@ -36,6 +48,8 @@ export class Step3Component implements AfterViewInit {
   }
 
   startDrawing(event: MouseEvent | TouchEvent) {
+    if (!this.isBrowser) return;
+    
     this.isDrawing = true;
     const pos = this.getPosition(event);
     this.lastX = pos.x;
@@ -43,9 +57,9 @@ export class Step3Component implements AfterViewInit {
   }
 
   draw(event: MouseEvent | TouchEvent) {
-    if (!this.isDrawing) return;
+    if (!this.isBrowser || !this.isDrawing) return;
+    
     event.preventDefault();
-
     const pos = this.getPosition(event);
     const currentX = pos.x;
     const currentY = pos.y;
@@ -57,20 +71,27 @@ export class Step3Component implements AfterViewInit {
 
     this.lastX = currentX;
     this.lastY = currentY;
+    this.hasSignature = true;
   }
 
   stopDrawing() {
+    if (!this.isBrowser) return;
     this.isDrawing = false;
   }
 
   clearCanvas() {
-    if (!this.isLoading) {
-      this.ctx.clearRect(0, 0, this.signatureCanvas.nativeElement.width, this.signatureCanvas.nativeElement.height);
-    }
+    if (!this.isBrowser || this.isLoading) return;
+    
+    this.ctx.clearRect(0, 0, this.signatureCanvas.nativeElement.width, this.signatureCanvas.nativeElement.height);
+    this.hasSignature = false;
+  }
+
+  isFormValid(): boolean {
+    return this.hasSignature && this.nameControl.valid;
   }
 
   async saveSignature() {
-    if (this.isLoading) return;
+    if (!this.isBrowser || this.isLoading || !this.isFormValid()) return;
     
     this.isLoading = true;
     try {
@@ -111,5 +132,15 @@ export class Step3Component implements AfterViewInit {
     }
 
     return { x, y };
+  }
+
+  getNameErrorMessage(): string {
+    if (this.nameControl.hasError('required')) {
+      return 'กรุณากรอกชื่อ-นามสกุล';
+    }
+    if (this.nameControl.hasError('pattern')) {
+      return 'กรุณากรอกชื่อเป็นภาษาไทยเท่านั้น';
+    }
+    return '';
   }
 }

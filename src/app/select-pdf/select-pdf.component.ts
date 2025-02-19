@@ -12,13 +12,17 @@ import { CommonModule } from '@angular/common';
 export class SelectPDFComponent {
   public isLoading: boolean = false; 
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router
+
+  ) {
+    
+  }
 
   async onFileSelected() {
     if (!this.isLoading) {
       this.isLoading = true;
       try {
-        // จำลองการโหลดไฟล์
         await new Promise(resolve => setTimeout(resolve, 1500));
         await this.router.navigate(['/check-document']);
       } catch (error) {
