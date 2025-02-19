@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './select-pdf.component.css'
 })
 export class SelectPDFComponent {
-  public isLoading: boolean = false; 
+  public isLoading: boolean = false;
 
   constructor(private router: Router) {}
 
@@ -19,7 +19,8 @@ export class SelectPDFComponent {
       this.isLoading = true;
       try {
         // จำลองการโหลดไฟล์
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        await new Promise(resolve => setTimeout(resolve, 1000
+        ));
         await this.router.navigate(['/check-document']);
       } catch (error) {
         console.error('Error:', error);
