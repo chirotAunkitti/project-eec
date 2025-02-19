@@ -1,5 +1,9 @@
-<!-- select-pdf.component.html -->
 <div class="container">
+<!-- เพิ่มส่วนนี้ด้านบนสุดของ container -->
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="loading-spinner"></div>
+</div>
+
     <div class="logo">
       <img src="icon/Logo.png" alt="Logo">
     </div>
@@ -13,7 +17,7 @@
 
         </div>
       </div>
-      <button (click)="onFileSelected()" class="select-btn">
+      <button [disabled]="isLoading" (click)="onFileSelected()" class="select-btn">
         Select Documents
       </button>
     
