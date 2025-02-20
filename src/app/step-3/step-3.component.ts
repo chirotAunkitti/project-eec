@@ -122,6 +122,9 @@ export class Step3Component implements AfterViewInit {
     const rect = canvas.getBoundingClientRect();
     let x, y;
 
+    if (event.type === 'touchstart') {
+      
+    }
     if (event instanceof MouseEvent) {
       x = event.clientX - rect.left;
       y = event.clientY - rect.top;
