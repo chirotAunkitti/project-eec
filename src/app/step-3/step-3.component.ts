@@ -17,10 +17,9 @@ export class Step3Component implements AfterViewInit {
   private lastX = 0;
   private lastY = 0;
   nameControl = new FormControl('');
+  public isLoading: boolean = false;
 
-  constructor(
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
   ngAfterViewInit() {
     const canvas = this.signatureCanvas.nativeElement;
@@ -30,7 +29,6 @@ export class Step3Component implements AfterViewInit {
     canvas.height = canvas.offsetHeight * 2;
     
     this.ctx.scale(2, 2);
-    
     this.ctx.strokeStyle = '#000';
     this.ctx.lineWidth = 2;
     this.ctx.lineCap = 'round';
@@ -66,20 +64,36 @@ export class Step3Component implements AfterViewInit {
   }
 
   clearCanvas() {
-    this.ctx.clearRect(0, 0, this.signatureCanvas.nativeElement.width, this.signatureCanvas.nativeElement.height);
+    if (!this.isLoading) {
+      this.ctx.clearRect(0, 0, this.signatureCanvas.nativeElement.width, this.signatureCanvas.nativeElement.height);
+    }
   }
 
-  saveSignature() {
-    // const dataUrl = this.signatureCanvas.nativeElement.toDataURL('image/png');
-    // const name = this.nameControl.value;
-    // console.log('Signature saved:', { signature: dataUrl, name });
-    this.router.navigate(['/step-5-pdf']);
+  async saveSignature() {
+    if (this.isLoading) return;
+    
+    this.isLoading = true;
+    try {
+      const dataUrl = this.signatureCanvas.nativeElement.toDataURL('image/png');
+      const name = this.nameControl.value;
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      console.log('Signature saved:', { signature: dataUrl, name });
+      
+      this.router.navigate(['/step-5-pdf']);
+    } catch (error) {
+      console.error('Error saving signature:', error);
+      // Handle error here
+    } finally {
+      this.isLoading = false;
+    }
   }
 
   cancel() {
-    // this.clearCanvas();
-    // this.nameControl.reset();
-    this.router.navigate(['/step-2-pdf']);
+    if (!this.isLoading) {
+      this.router.navigate(['/step-2-pdf']);
+    }
   }
 
   private getPosition(event: MouseEvent | TouchEvent) {
