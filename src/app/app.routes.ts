@@ -7,7 +7,8 @@ import { Step3Component } from './step-3/step-3.component';
 import { Step4Component } from './step-4/step-4.component';
 import { Step5Component } from './step-5/step-5.component';
 import { Step6Component } from './step-6/step-6.component';
-import { DowloadPdfComponent } from './dowload-pdf/dowload-pdf.component';
+import { DownloadPdfComponent } from './dowload-pdf/dowload-pdf.component';
+// import { ServiceComponent } from './service/service.component';
 
 
 export const routes: Routes = [
@@ -41,8 +42,12 @@ export const routes: Routes = [
   },
   {
     path: 'download-pdf',
-    component:DowloadPdfComponent
-  }
+    component:DownloadPdfComponent
+  },
+  // {
+  //   path:'service',
+  //   component: ServiceComponent
+  // }
 ];
 
 export const appRouting = provideRouter(routes);

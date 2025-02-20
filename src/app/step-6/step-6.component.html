@@ -1,27 +1,21 @@
 <div class="PDF">
-  <div class="pdf_header py-3 shadow text-center">
-    <h5>เลือกเอกสาร PDF ที่คุณต้องการดาวน์โหลด</h5>
+  <div class="pdf_header">
+      <h5>ตรวจสอบเอกสารที่เซ็นแล้ว</h5>
   </div>
 
-  <!-- เลือกไฟล์ PDF -->
-  <div class="pdf-selection">
-    <label *ngFor="let pdf of pdfUrls; let i = index">
-      <input type="checkbox" [checked]="selectedPdfs[i]" (change)="onPdfSelect(i, $event)" /> {{ 'เอกสาร ' + (i + 1) }}
-    </label>
-  </div>
-
-  <!-- แสดง PDF Viewer -->
-  <div class="mb-5">
-    <ngx-extended-pdf-viewer
-      *ngIf="isAnyPdfSelected()"
+  <!-- PDF Viewer -->
+  <ngx-extended-pdf-viewer
+      [src]="pdfUrls[currentPdfIndex]"
+      useBrowserLocale="true"
+      [showSidebarButton]="false"
+      [height]="'100%'"
       [showToolbar]="false"
-      [src]="getSelectedPdfUrl()"
-      useBrowserLocale="true">
-    </ngx-extended-pdf-viewer>
-  </div>
+      [(page)]="pageNumber">
+  </ngx-extended-pdf-viewer>
 
-  <!-- <div class="pdf_footer2 fixed-bottom shadow">
-    <div class="pdf_button px-sm-5 py-3 row col text-center">
+  <!-- Footer -->
+  <div class="pdf_footer2 fixed-bottom">
+    <div class="pdf_button row text-center">
       <div class="col-sm-3 col-4">
         <button class="btn-pdf" (click)="prevPdf()" [disabled]="currentPdfIndex === 0">
           ⬅ ก่อนหน้า
@@ -35,10 +29,9 @@
           ถัดไป ➡
         </button>
       </div>
+      <div class="col-sm-3 col-4 text-end">
+        <button class="btn-confirm" (click)="goToDownloadPdf()">ดาวน์โหลดเอกสาร</button>
+      </div>
     </div>
-
-    <div class="col-sm-3 col-4 text-end">
-      <button class="btn-confirm" (click)="goToStep7()">ไปยัง Step 7</button>
-    </div>
-  </div> -->
+  </div>
 </div>

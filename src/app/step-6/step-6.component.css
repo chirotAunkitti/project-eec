@@ -1,6 +1,7 @@
+/* กำหนดให้ PDF Viewer เต็มหน้าจอ */
 .PDF {
   overflow: hidden !important;
-  height: 100vh;
+  height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -11,13 +12,15 @@
   padding: 10px;
   text-align: center;
   font-size: 15px;
-  text-align: center;
 }
 
-.pdf-selection {
-  margin: 20px;
+/* ปรับขนาด viewer */
+ngx-extended-pdf-viewer {
+  flex: 1; /* ให้ตัวแสดง PDF ขยายเต็มพื้นที่ที่เหลือ */
+  width: 100%;
 }
 
+/* ปรับแต่ง Footer */
 .pdf_footer2 {
   background-color: rgb(255, 255, 255);
   border: 1px solid #e5e5e5;
@@ -25,11 +28,17 @@
   padding: 10px;
 }
 
+/* ปรับแต่งปุ่ม PDF */
 .pdf_button {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  width: 100%;
+  justify-content:center;  /* การจัดระยะห่างแบบ space-around */
+  width: 125%;  /* ปรับให้เหมาะสม */
+  gap: 30vh ;
+}
+
+.pdf_button .col-sm-3 {
+  margin: 0 10px; /* ใช้ margin เพื่อเพิ่มระยะห่างระหว่างช่อง */
 }
 
 .btn-pdf {
@@ -54,7 +63,6 @@
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  float: right;
 }
 
 .btn-confirm:hover {
