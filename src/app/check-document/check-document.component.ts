@@ -16,7 +16,8 @@ export class CheckDocumentComponent {
   public pageNumber: number = 1;
 
   public pdfUrls: string[] = [
-    '/assets/document.pdf',
+    '/assets/PDF/file(2).pdf',
+    '/assets/PDF/file.pdf'
   ];
 
   constructor(private router: Router) {}
