@@ -1,9 +1,14 @@
 <div class="status-container">
-    <div class="status-circle">
-      <div class="check-icon">✓</div>
-    </div>
-    <div class="status-text">
-      เอกสารได้รับการลงนาม<br>
-      ด้วย Digital Signature แล้ว
-    </div>
+  <div class="status-circle">
+    <div class="check-icon">✓</div>
   </div>
+  <div class="status-text">
+    เอกสารได้รับการลงนาม<br>
+    ด้วย Digital Signature แล้ว
+  </div>
+</div>
+
+<!-- เพิ่มส่วนแสดง loading spinner -->
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="loading-spinner"></div>
+</div>
