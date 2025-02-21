@@ -5,13 +5,15 @@
 
   <!-- PDF Viewer -->
   <ngx-extended-pdf-viewer
-      [src]="pdfUrls[currentPdfIndex]"
-      useBrowserLocale="true"
-      [showSidebarButton]="false"
-      [height]="'100%'"
-      [showToolbar]="false"
-      [(page)]="pageNumber">
-  </ngx-extended-pdf-viewer>
+  [src]="pdfUrls[currentPdfIndex]"
+  useBrowserLocale="true"
+  [showSidebarButton]="false"
+  [height]="'100%'"
+  [showToolbar]="false"
+  [(page)]="pageNumber"
+  (pageRendered)="onPageRendered($event)"> 
+</ngx-extended-pdf-viewer>
+
 
   <!-- Footer -->
   <div class="pdf_footer2 fixed-bottom">

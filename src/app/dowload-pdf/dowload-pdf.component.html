@@ -1,3 +1,26 @@
-<div class="download-container">
-  <button class="btn-download" (click)="downloadFile()">Download PDF</button>
+<div class="PDF">
+  <div class="pdf_header py-3 shadow text-center">
+    <h5>เลือกเอกสาร PDF ที่คุณต้องการดาวน์โหลด</h5>
+  </div>
+
+  <!-- เลือกไฟล์ PDF -->
+  <div class="pdf-selection">
+    <label *ngFor="let pdf of pdfUrls; let i = index">
+      <input type="checkbox" [checked]="selectedPdfs[i]" (change)="onPdfSelect(i, $event)" /> {{ 'เอกสาร ' + (i + 1) }}
+    </label>
+  </div>
+
+  <!-- แสดง PDF Viewer เมื่อมีการเลือกเอกสาร -->
+  <div class="mb-5" *ngIf="isAnyPdfSelected()">
+    <ngx-extended-pdf-viewer
+      [showToolbar]="false"
+      [src]="getSelectedPdfUrl()"
+      useBrowserLocale="true">
+    </ngx-extended-pdf-viewer>
+  </div>
+
+  <!-- ปุ่มสำหรับดาวน์โหลดเอกสาร PDF ที่เลือก -->
+  <div class="text-center" *ngIf="isAnyPdfSelected()">
+    <button class="btn-confirm" (click)="downloadSelectedPdfs()">ดาวน์โหลด</button>
+  </div>
 </div>

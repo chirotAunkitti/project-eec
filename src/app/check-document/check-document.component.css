@@ -1,9 +1,9 @@
-/* กำหนดให้ PDF Viewer เต็มหน้าจอ */
 .PDF {
   overflow: hidden !important;
   height: 100dvh;
   display: flex;
   flex-direction: column;
+  position: relative; /* ตั้งค่า relative เพื่อใช้เป็นตำแหน่งที่อ้างอิงสำหรับ .red-rectangle */
 }
 
 .pdf_header {
@@ -12,12 +12,40 @@
   padding: 10px;
   text-align: center;
   font-size: 15px;
+  z-index: 10;
 }
 
 /* ปรับขนาด viewer */
-ngx-extended-pdf-viewer {
-  flex: 1; /* ให้ตัวแสดง PDF ขยายเต็มพื้นที่ที่เหลือ */
+.pdf-container {
+  flex: 1;
   width: 100%;
+  position: relative; /* ใช้ position relative เพื่อให้สี่เหลี่ยมสีแดงอยู่ภายในนี้ */
+}
+
+ngx-extended-pdf-viewer {
+  width: 100%;
+  height: 100%;
+}
+
+/* สไตล์สำหรับ overlay ลายเซ็น */
+.signature-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.signature-box {
+  position: absolute;
+  border: 2px dashed #ff6b6b;
+  background-color: rgba(255, 107, 107, 0.1);
+  z-index: 1001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ปรับแต่ง Footer */
@@ -26,19 +54,17 @@ ngx-extended-pdf-viewer {
   border: 1px solid #e5e5e5;
   box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
   padding: 10px;
+  z-index: 10;
 }
 
 /* ปรับแต่งปุ่ม PDF */
 .pdf_button {
   display: flex;
   flex-direction: row;
-  justify-content:center;  /* การจัดระยะห่างแบบ space-around */
-  width: 120%;  /* ปรับให้เหมาะสม */
-  gap: 40vh ;
-}
-
-.pdf_button .col-sm-3 {
-  margin: 0 10px; /* ใช้ margin เพื่อเพิ่มระยะห่างระหว่างช่อง */
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 15px;
 }
 
 .btn-pdf {
@@ -63,9 +89,20 @@ ngx-extended-pdf-viewer {
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
-  /* ไม่จำเป็นต้องใช้ float: right */
 }
 
 .btn-confirm:hover {
   background-color: #10044a;
+}
+
+/* สไตล์สำหรับสี่เหลี่ยมสีแดง */
+.pdf-container {
+  position: relative;
+}
+
+.signature-indicator {
+  position: absolute;
+  z-index: 1000;
+  pointer-events: none; /* ป้องกันการ interact กับรูป */
+ 
 }

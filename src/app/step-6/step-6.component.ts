@@ -1,60 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { PdfService } from '../../service/PdfService ';
 
 @Component({
   selector: 'app-step-6',
   standalone: true,
-  imports: [NgxExtendedPdfViewerModule,CommonModule],
+  imports: [NgxExtendedPdfViewerModule,CommonModule,],
   templateUrl: './step-6.component.html',
   styleUrl: './step-6.component.css'
 })
-export class Step6Component {
-  pdfUrls: string[] = [
-    // '/assets/PDF/file-select.pdf',
-    // '/assets/PDF/file.pdf',
-     '/assets/PDF/image-4.pdf'
+export class Step6Component implements OnInit {
+  signedDocs: any[] = []; // เอกสารที่เซ็นแล้ว
+  public pdfUrls: string[] = [];
+  currentPdfIndex: number = 0; // ตำแหน่งของ PDF ปัจจุบัน
+  pageNumber: number = 1; // เลขหน้าปัจจุบันของ PDF
 
-  ];
+  constructor(private router: Router, private pdfService: PdfService) {}
 
-  selectedPdfs: boolean[] = [false, false, false]; // เก็บสถานะของการเลือกไฟล์
-  currentPdfIndex = 0;
-  currentPdf = 1;
-  totalfiles = 3;
-
-  constructor(private router: Router) {}
-
-  // ฟังก์ชันเลือกไฟล์ PDF ที่จะดู
-  getSelectedPdfUrl() {
-    const selectedIndex = this.selectedPdfs.findIndex(isSelected => isSelected);
-    return this.pdfUrls[selectedIndex]; // คืนค่า URL ของไฟล์ที่เลือก
+  ngOnInit() {
+    // โหลดเอกสาร PDF จาก Service
+    this.pdfUrls = this.pdfService.pdfUrls.length > 0 ? this.pdfService.pdfUrls : [
+      './assets/PDF/file-select.pdf',
+      './assets/PDF/file.pdf',
+    ];
   }
 
-  // ฟังก์ชันจัดการเลือก PDF
-  onPdfSelect(index: number, event: any) {
-    this.selectedPdfs[index] = event.target.checked;
-  }
-
+  // ไปยัง PDF ก่อนหน้า
   prevPdf() {
     if (this.currentPdfIndex > 0) {
       this.currentPdfIndex--;
     }
   }
 
+  // ไปยัง PDF ถัดไป
   nextPdf() {
-    if (this.currentPdfIndex < this.totalfiles - 1) {
+    if (this.currentPdfIndex < this.pdfUrls.length - 1) {
       this.currentPdfIndex++;
     }
   }
 
-  // ฟังก์ชันไปยัง Step 7 และส่งข้อมูลไฟล์ที่เลือก
-  goToStep7() {
-    const selectedFiles = this.pdfUrls.filter((url, index) => this.selectedPdfs[index]);
-    // ส่งข้อมูลไปยัง Step 7
-    this.router.navigate(['/step-7-pdf'], { queryParams: { files: JSON.stringify(selectedFiles) } });
+  // ดาวน์โหลดเอกสาร
+  goToDownloadPdf() {
+    this.router.navigate(['/download-pdf']);
   }
-  isAnyPdfSelected() {
-    return this.selectedPdfs.some(isSelected => isSelected);
+
+  // แสดงหมายเลขของ PDF ปัจจุบัน
+  get currentPdf(): number {
+    return this.currentPdfIndex + 1;
+  }
+
+  // แสดงจำนวนไฟล์ทั้งหมด
+  get totalfiles(): number {
+    return this.pdfUrls.length;
   }
 }
