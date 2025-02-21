@@ -1,19 +1,33 @@
 <div class="PDF">
   <div class="pdf_header">
-      <h5>ตรวจสอบเอกสารที่เซ็นแล้ว</h5>
+    <h5>ตรวจสอบเอกสารที่เซ็นแล้ว</h5>
+    <div class="btn-pdf__">
+      <button class="btn-pdf_" (click)="goBarkPdf()">⬅</button>
+    </div>
   </div>
 
-  <!-- PDF Viewer -->
-  <ngx-extended-pdf-viewer
+  <div class="pdf-container" (click)="onPdfClick($event)">
+    <ngx-extended-pdf-viewer
+      #pdfViewer
       [src]="pdfUrls[currentPdfIndex]"
       useBrowserLocale="true"
       [showSidebarButton]="false"
       [height]="'100%'"
       [showToolbar]="false"
       [(page)]="pageNumber">
-  </ngx-extended-pdf-viewer>
+    </ngx-extended-pdf-viewer>
 
-  <!-- Footer -->
+    <div class="signature-wrapper" *ngIf="signatureData">
+      <div class="signature-container"
+           [style.left.px]="signaturePosition.x"
+           [style.top.px]="signaturePosition.y"
+           [style.transform]="'scale(' + signaturePosition.scale + ')'">
+        <img [src]="signatureData" alt="ลายเซ็น" class="signature-image" />
+        <p class="signature-name"><strong>{{ signedUserName }}</strong></p>
+      </div>
+    </div>
+  </div>
+
   <div class="pdf_footer2 fixed-bottom">
     <div class="pdf_button row text-center">
       <div class="col-sm-3 col-4">

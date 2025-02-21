@@ -32,9 +32,9 @@ ngx-extended-pdf-viewer {
 .pdf_button {
   display: flex;
   flex-direction: row;
-  justify-content:center;  /* การจัดระยะห่างแบบ space-around */
+  justify-content: center;  /* การจัดระยะห่างแบบ space-around */
   width: 125%;  /* ปรับให้เหมาะสม */
-  gap: 30vh ;
+  gap: 30vh;
 }
 
 .pdf_button .col-sm-3 {
@@ -56,7 +56,7 @@ ngx-extended-pdf-viewer {
 }
 
 .btn-confirm {
-  background-color: #28a745;
+  background-color:  #10044a;
   border: none;
   color: white;
   padding: 10px 15px;
@@ -66,5 +66,59 @@ ngx-extended-pdf-viewer {
 }
 
 .btn-confirm:hover {
-  background-color: #10044a;
+  background-color: #36219b;
+}
+
+.btn-pdf__ {
+  position: absolute; /* ทำให้ปุ่มอยู่แบบอิสระ */
+  top: 25px; /* ห่างจากด้านบน 10px */
+  left: 20px; /* ห่างจากด้านซ้าย 10px */
+  z-index: 10; /* ทำให้ปุ่มอยู่เหนือ PDF */
+}
+
+.btn-pdf_ {
+  background-color: white;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.btn-pdf_:hover {
+  background-color: #f1f1f1;
+}
+
+.pdf-container {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 200px);
+
+}
+
+.signature-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.signature-container {
+  position: absolute;
+  z-index: 1000;
+  transform-origin: center;
+}
+
+.signature-image {
+  width: 150px;
+  height: auto;
+  max-width: 100%;
+}
+
+.signature-name {
+  margin-top: 5px;
+  text-align: center;
+  font-size: 14px;
 }

@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild, AfterViewInit, inject, PLATFORM_ID } 
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { PdfService } from '../../service/pdf.service'; // ✅ นำเข้า PdfService
 
 @Component({
   selector: 'app-step-3',
@@ -23,7 +24,7 @@ export class Step3Component implements AfterViewInit {
   public isLoading: boolean = false;
   public isBrowser: boolean;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private pdfService: PdfService) { // ✅ เพิ่ม PdfService
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
@@ -96,16 +97,15 @@ export class Step3Component implements AfterViewInit {
     this.isLoading = true;
     try {
       const dataUrl = this.signatureCanvas.nativeElement.toDataURL('image/png');
-      const name = this.nameControl.value;
+      const name = this.nameControl.value ?? '';
+
+      // ✅ บันทึกข้อมูลลงใน PdfService
+      this.pdfService.setSignatureData(dataUrl, name);
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      console.log('Signature saved:', { signature: dataUrl, name });
-      
+      // ไปยังหน้าถัดไป
       this.router.navigate(['/step-5-pdf']);
     } catch (error) {
       console.error('Error saving signature:', error);
-      // Handle error here
     } finally {
       this.isLoading = false;
     }
@@ -122,9 +122,6 @@ export class Step3Component implements AfterViewInit {
     const rect = canvas.getBoundingClientRect();
     let x, y;
 
-    if (event.type === 'touchstart') {
-      
-    }
     if (event instanceof MouseEvent) {
       x = event.clientX - rect.left;
       y = event.clientY - rect.top;
