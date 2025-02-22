@@ -6,27 +6,27 @@
     </div>
   </div>
 
-  <div class="pdf-container" (click)="onPdfClick($event)">
+  <div class="pdf-container" >
     <ngx-extended-pdf-viewer
       #pdfViewer
       [src]="pdfUrls[currentPdfIndex]"
       useBrowserLocale="true"
       [showSidebarButton]="false"
+      [textLayer]="true"
       [height]="'100%'"
       [showToolbar]="false"
-      [(page)]="pageNumber">
+      [(page)]="pageNumber"
+      (pageRendered)="onPageRendered($event)">
     </ngx-extended-pdf-viewer>
 
-    <div class="signature-wrapper" *ngIf="signatureData">
-      <div class="signature-container"
-           [style.left.px]="signaturePosition.x"
-           [style.top.px]="signaturePosition.y"
-           [style.transform]="'scale(' + signaturePosition.scale + ')'">
-        <img [src]="signatureData" alt="ลายเซ็น" class="signature-image" />
-        <p class="signature-name"><strong>{{ signedUserName }}</strong></p>
+    <!-- Signature Overlay -->
+    <!-- <div class="signature-wrapper" *ngIf="signatureData && isSignatureVisible">
+      <div class="signature-container">
+        <img [src]="signatureData" class="signature-image" alt="ลายเซ็น">
+        <div class="signature-name">{{ signedUserName }}</div>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="pdf_footer2 fixed-bottom">
     <div class="pdf_button row text-center">
