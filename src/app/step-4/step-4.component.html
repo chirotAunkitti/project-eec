@@ -20,19 +20,6 @@
       <span class="file-name">{{ fileName }}</span>
     </div>
     
-    <!-- ช่องกรอกชื่อ -->
-    <div class="input-container">
-      <div class="input-wrapper">
-        <input 
-          type="text" 
-          [(ngModel)]="userName" 
-          placeholder="ชื่อ - นามสกุล (ภาษาไทย)" 
-          class="name-input"
-        >
-      </div>
-    </div>
-    
-
     <div class="signature-preview">
       <div class="zoom-controls" *ngIf="selectedImage">
         <button class="zoom-btn" (click)="zoomIn()" [disabled]="isLoading">
@@ -49,9 +36,7 @@
         <img 
           *ngIf="selectedImage"
           [src]="selectedImage" 
-          [style.transform]="'scale(' + zoomLevel + ')'"
-          alt="ลายเซ็น"
-        >
+          [style.transform]="'scale(' + zoomLevel + ')'">
         <div *ngIf="!selectedImage" class="placeholder">
           กรุณาเลือกรูปภาพ
         </div>
@@ -59,8 +44,27 @@
     </div>
   </div>
 
+  <!-- ช่องกรอกชื่อ -->
+  <div class="input-container">
+    <div class="input-wrapper">
+      <input 
+        type="text" 
+        [formControl]="nameControl" 
+        placeholder="ชื่อ - นามสกุล (ภาษาไทย)" 
+        class="name-input"
+        [class.error]="nameControl.invalid && nameControl.touched">
+      <div class="error-message" *ngIf="nameControl.invalid && nameControl.touched">
+        {{ getNameErrorMessage() }}
+      </div>
+    </div>
+  </div>
+  
   <div class="action-buttons">
     <button class="cancel-btn" (click)="onNono()" [disabled]="isLoading">ยกเลิก</button>
-    <button class="save-btn" [disabled]="!selectedImage || isLoading" (click)="onSave()">บันทึก</button>
+    <button class="save-btn" 
+      [disabled]="nameControl.invalid || !selectedImage || isLoading"
+      (click)="onSave()">
+      บันทึก
+    </button>
   </div>
 </div>

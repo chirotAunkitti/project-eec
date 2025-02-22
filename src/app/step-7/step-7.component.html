@@ -1,1 +1,39 @@
-<p>step-7 works!</p>
+<div class="PDF">
+    <div class="pdf_header">
+        <h5>คุณมีเอกสารต้องลงนาม</h5>
+        <div class="btn-pdf__">
+            <button class="btn-pdf_" (click)="goBarkPdf()">⬅</button>
+          </div>
+    </div>
+  
+    <ngx-extended-pdf-viewer
+        [src]="pdfUrls[currentPdfIndex]"
+        useBrowserLocale="true"
+        [showSidebarButton]="false"
+        [height]="'100%'"
+        [showToolbar]="false"
+        [(page)]="pageNumber">
+    </ngx-extended-pdf-viewer>
+  
+    <!-- Footer -->
+    <div class="pdf_footer2 fixed-bottom">
+      <div class="pdf_button row text-center">
+        <div class="col-sm-3 col-4">
+          <button class="btn-pdf" (click)="prevPdf()" [disabled]="currentPdfIndex === 0">
+            ⬅ ก่อนหน้า
+          </button>
+        </div>
+        <div class="col-sm-6 col-4">
+          <span>เอกสารที่ {{ currentPdf }}/{{ totalfiles }}</span>
+        </div>
+        <div class="col-sm-3 col-4">
+          <button class="btn-pdf" (click)="nextPdf()" [disabled]="currentPdfIndex >= totalfiles - 1">
+            ถัดไป ➡
+          </button>
+        </div>
+        <div class="col-sm-3 col-4 text-end">
+            <button class="btn-confirm" (click)="downloadAllFiles()">ดาวน์โหลดเอกสารทั้งหมด</button>
+          </div>
+      </div>
+    </div>
+  </div>

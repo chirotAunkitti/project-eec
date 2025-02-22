@@ -6,8 +6,9 @@ import { Step2Component } from './step-2/step-2.component';
 import { Step3Component } from './step-3/step-3.component';
 import { Step4Component } from './step-4/step-4.component';
 import { Step5Component } from './step-5/step-5.component';
-import { Step6Component } from './step-6/step-6.component';
 import { DownloadPdfComponent } from './dowload-pdf/dowload-pdf.component';
+import { Step6Component } from './step-6/step-6.component';
+import { Step7Component } from './step-7/step-7.component';
 // import { ServiceComponent } from './service/service.component';
 
 
@@ -43,6 +44,10 @@ export const routes: Routes = [
   {
     path: 'download-pdf',
     component:DownloadPdfComponent
+  },
+  {
+    path: 'step-7-pdf',
+    component:Step7Component
   },
   // {
   //   path:'service',
