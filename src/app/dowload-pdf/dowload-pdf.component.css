@@ -1,22 +1,69 @@
-/* สไตล์ของปุ่ม Download และการจัดตำแหน่ง */
+.page-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #EAEAEA;
+}
+
+.navbar {
+  background-color: white;
+  height: 60px;
+  width: 100%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.top-navbar {
+  position: fixed;
+  top: 0;
+  z-index: 100;
+}
+
+.bottom-navbar {
+  position: fixed;
+  bottom: 0;
+  z-index: 100;
+}
+
 .download-container {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* ให้ปุ่มอยู่ตรงกลางหน้าจอ */
+  margin: 60px 0; /* Account for fixed navbars */
 }
 
-.btn-download {
-  background-color: #28a745;
+.download-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: white;
   border: none;
-  color: white;
-  padding: 15px 30px;
-  font-size: 18px;
+  border-radius: 30px;
+  padding: 20px 60px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  font-size: 18px;
+  color: #666;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  min-width: 250px;
 }
 
-.btn-download:hover {
-  background-color: #218838;
+.download-button:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+.download-button:active {
+  transform: translateY(1px);
+}
+
+.download-button svg {
+  width: 24px;
+  height: 24px;
+}
+
+.download-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }

@@ -18,9 +18,6 @@ export class CheckDocumentComponent {
     '/assets/PDF/Group1.pdf',
     '/assets/PDF/Group2.pdf',
     '/assets/PDF/Group1.pdf',
-    '/assets/PDF/Group1.pdf',
-    '/assets/PDF/Group1.pdf',
-    '/assets/PDF/Group2.pdf'
   ];
 
   get totalfiles(): number {

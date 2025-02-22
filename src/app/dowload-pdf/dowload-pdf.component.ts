@@ -1,43 +1,29 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { PdfService } from '../../service/PdfService ';
+import { PdfSignatureServic } from '../../service/PdfService ';
+import { Step6Component } from '../step-6/step-6.component';
+
+
 @Component({
   selector: 'app-dowload-pdf',
   standalone: true,
-  imports: [CommonModule,NgxExtendedPdfViewerModule],
+  imports: [CommonModule, NgxExtendedPdfViewerModule],
   templateUrl: './dowload-pdf.component.html',
-  styleUrl: './dowload-pdf.component.css'
+  styleUrls: ['./dowload-pdf.component.css']
 })
 export class DownloadPdfComponent implements OnInit {
-  pdfUrls: string[] = [];
-  selectedPdfs: boolean[] = [];
+  isLoading: boolean = false;
 
-  constructor(private pdfService: PdfService) {}
+  constructor(private pdfSignatureServic: PdfSignatureServic) {}
 
-  ngOnInit() {
-    // ดึง URL ของ PDF จาก service
-    this.pdfUrls = this.pdfService.getPdfUrls();
-    this.selectedPdfs = new Array(this.pdfUrls.length).fill(false);
-  }
+  ngOnInit(): void {}
 
-  onPdfSelect(i: number, event: any) {
-    this.selectedPdfs[i] = event.target.checked;
-  }
+async downloadPdf(): Promise<void> {
 
-  isAnyPdfSelected(): boolean {
-    return this.selectedPdfs.some(selected => selected);
-  }
+}
 
-  getSelectedPdfUrl(): string {
-    // สมมุติให้แสดง PDF ของไฟล์แรกที่ถูกเลือก (คุณสามารถปรับ logic ได้ตามต้องการ)
-    const index = this.selectedPdfs.findIndex(selected => selected);
-    return index !== -1 ? this.pdfUrls[index] : '';
-  }
 
-  downloadSelectedPdfs() {
-    // Implement logic สำหรับดาวน์โหลดเอกสาร PDF ที่เลือก
-    // เช่น เปิดลิงค์ดาวน์โหลด, เรียก service เพื่อดาวน์โหลด, เป็นต้น
-    console.log('ดาวน์โหลดเอกสาร PDF ที่เลือก:', this.selectedPdfs);
-  }
+
+  
 }

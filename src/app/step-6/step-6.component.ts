@@ -4,6 +4,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PdfService } from '../../service/pdf.service';
+import { jsPDF } from 'jspdf';
 
 interface PageRenderedEvent {
   source?: {
@@ -233,9 +234,9 @@ export class Step6Component implements OnInit {
     this.router.navigate(['/step-2-pdf']);
   }
 
-  goToDownloadPdf() {
-    this.router.navigate(['/download-pdf']);
-  }
+  // goToDownloadPdf() {
+  //   this.router.navigate(['/download-pdf']);
+  // }
 
   get currentPdf(): number {
     return this.currentPdfIndex + 1;
@@ -243,5 +244,56 @@ export class Step6Component implements OnInit {
 
   get totalfiles(): number {
     return this.pdfUrls.length;
+  }
+
+  async downloadSignedPdf() {
+    try {
+      const canvas = document.querySelector('canvas');
+      if (!canvas) {
+        console.error('Cannot find PDF canvas');
+        return;
+      }
+
+      // สร้าง PDF ใหม่จาก canvas
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'px',
+        format: [canvas.width, canvas.height]
+      });
+
+      // เพิ่มรูปภาพจาก canvas ลงใน PDF
+      pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+
+      // สร้างชื่อไฟล์
+      const fileName = `signed_document_${this.currentPdfIndex + 1}.pdf`;
+
+      // ดาวน์โหลด PDF
+      pdf.save(fileName);
+
+      console.log('PDF downloaded successfully:', fileName);
+    } catch (error) {
+      console.error('Error downloading PDF:', error);
+    }
+  }
+
+  // เพิ่มฟังก์ชันสำหรับดาวน์โหลดทุกไฟล์
+  async goToDownloadPdf() {
+    try {
+      for (let i = 0; i < this.pdfUrls.length; i++) {
+        // เปลี่ยนไปยัง PDF แต่ละไฟล์
+        this.currentPdfIndex = i;
+        
+        // รอให้ PDF โหลดและเรนเดอร์เสร็จ
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // ดาวน์โหลด PDF ปัจจุบัน
+        await this.downloadSignedPdf();
+      }
+      
+      console.log('All PDFs downloaded successfully');
+    } catch (error) {
+      console.error('Error downloading all PDFs:', error);
+    }
   }
 }

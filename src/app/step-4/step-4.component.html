@@ -19,6 +19,19 @@
       </button>
       <span class="file-name">{{ fileName }}</span>
     </div>
+    
+    <!-- ช่องกรอกชื่อ -->
+    <div class="input-container">
+      <div class="input-wrapper">
+        <input 
+          type="text" 
+          [(ngModel)]="userName" 
+          placeholder="ชื่อ - นามสกุล (ภาษาไทย)" 
+          class="name-input"
+        >
+      </div>
+    </div>
+    
 
     <div class="signature-preview">
       <div class="zoom-controls" *ngIf="selectedImage">

@@ -1,26 +1,21 @@
-<div class="PDF">
-  <div class="pdf_header py-3 shadow text-center">
-    <h5>เลือกเอกสาร PDF ที่คุณต้องการดาวน์โหลด</h5>
+<div class="page-container">
+  <!-- Top Navbar -->
+  <nav class="navbar top-navbar">
+    <!-- Add your top navbar content here -->
+  </nav>
+
+  <!-- Main Content -->
+  <div class="download-container">
+    <button class="download-button" (click)="downloadPdf()" [disabled]="isLoading">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M17 9l-5 5-5-5M12 12.8V2.5"/>
+      </svg>
+      <span>{{ isLoading ? 'Loading...' : 'Download' }}</span>
+    </button>
   </div>
 
-  <!-- เลือกไฟล์ PDF -->
-  <div class="pdf-selection">
-    <label *ngFor="let pdf of pdfUrls; let i = index">
-      <input type="checkbox" [checked]="selectedPdfs[i]" (change)="onPdfSelect(i, $event)" /> {{ 'เอกสาร ' + (i + 1) }}
-    </label>
-  </div>
-
-  <!-- แสดง PDF Viewer เมื่อมีการเลือกเอกสาร -->
-  <div class="mb-5" *ngIf="isAnyPdfSelected()">
-    <ngx-extended-pdf-viewer
-      [showToolbar]="false"
-      [src]="getSelectedPdfUrl()"
-      useBrowserLocale="true">
-    </ngx-extended-pdf-viewer>
-  </div>
-
-  <!-- ปุ่มสำหรับดาวน์โหลดเอกสาร PDF ที่เลือก -->
-  <div class="text-center" *ngIf="isAnyPdfSelected()">
-    <button class="btn-confirm" (click)="downloadSelectedPdfs()">ดาวน์โหลด</button>
-  </div>
+  <!-- Bottom Navbar -->
+  <nav class="navbar bottom-navbar">
+    <!-- Add your bottom navbar content here -->
+  </nav>
 </div>

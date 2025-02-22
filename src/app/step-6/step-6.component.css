@@ -60,6 +60,7 @@ ngx-extended-pdf-viewer {
   border: none;
   color: white;
   padding: 10px 15px;
+  right: 60px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;
@@ -92,8 +93,7 @@ ngx-extended-pdf-viewer {
 .pdf-container {
   position: relative;
   width: 100%;
-  height: calc(100vh - 200px);
-
+  height: calc(107vh - 200px);
 }
 
 .signature-wrapper {

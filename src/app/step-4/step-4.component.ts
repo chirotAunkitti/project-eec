@@ -1,19 +1,21 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';  // นำเข้า FormsModule
 
 @Component({
   selector: 'app-step-4',
   templateUrl: './step-4.component.html',
   styleUrls: ['./step-4.component.css'],
   standalone: true,
-  imports: [CommonModule] 
+  imports: [CommonModule, FormsModule]  // เพิ่ม FormsModule ใน imports
 })
 export class Step4Component {
   selectedImage: string | null = null;
   zoomLevel: number = 1;
   fileName: string = 'No file chosen';
   isLoading: boolean = false;
+  userName: string = '';  // Variable to bind the name input field
 
   constructor(private router: Router) {}
 
